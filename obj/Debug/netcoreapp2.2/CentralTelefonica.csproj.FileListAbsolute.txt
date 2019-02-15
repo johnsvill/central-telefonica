@@ -1,0 +1,11 @@
+C:\Users\Jonathan Villeda\Desktop\FullStack.Net\BackEnd\CentralTelefonica\bin\Debug\netcoreapp2.2\CentralTelefonica.deps.json
+C:\Users\Jonathan Villeda\Desktop\FullStack.Net\BackEnd\CentralTelefonica\bin\Debug\netcoreapp2.2\CentralTelefonica.runtimeconfig.json
+C:\Users\Jonathan Villeda\Desktop\FullStack.Net\BackEnd\CentralTelefonica\bin\Debug\netcoreapp2.2\CentralTelefonica.runtimeconfig.dev.json
+C:\Users\Jonathan Villeda\Desktop\FullStack.Net\BackEnd\CentralTelefonica\bin\Debug\netcoreapp2.2\CentralTelefonica.dll
+C:\Users\Jonathan Villeda\Desktop\FullStack.Net\BackEnd\CentralTelefonica\bin\Debug\netcoreapp2.2\CentralTelefonica.pdb
+C:\Users\Jonathan Villeda\Desktop\FullStack.Net\BackEnd\CentralTelefonica\obj\Debug\netcoreapp2.2\CentralTelefonica.csprojAssemblyReference.cache
+C:\Users\Jonathan Villeda\Desktop\FullStack.Net\BackEnd\CentralTelefonica\obj\Debug\netcoreapp2.2\CentralTelefonica.csproj.CoreCompileInputs.cache
+C:\Users\Jonathan Villeda\Desktop\FullStack.Net\BackEnd\CentralTelefonica\obj\Debug\netcoreapp2.2\CentralTelefonica.AssemblyInfoInputs.cache
+C:\Users\Jonathan Villeda\Desktop\FullStack.Net\BackEnd\CentralTelefonica\obj\Debug\netcoreapp2.2\CentralTelefonica.AssemblyInfo.cs
+C:\Users\Jonathan Villeda\Desktop\FullStack.Net\BackEnd\CentralTelefonica\obj\Debug\netcoreapp2.2\CentralTelefonica.dll
+C:\Users\Jonathan Villeda\Desktop\FullStack.Net\BackEnd\CentralTelefonica\obj\Debug\netcoreapp2.2\CentralTelefonica.pdb
