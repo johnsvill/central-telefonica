@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CentralTelefonica.Entidades;
+using CentralTelefonica.App;
 
 namespace CentralTelefonica
 {
@@ -8,7 +9,18 @@ namespace CentralTelefonica
     {
         static void Main(string[] args)
         {
-            Llamada llamadaDepto = new LlamadaDepartamental();
+               MenuPrincipal menu = new MenuPrincipal();
+               menu.MostrarMenu();
+
+
+
+
+
+
+
+
+               
+          /* Llamada llamadaDepto = new LlamadaDepartamental();
             llamadaDepto.NumeroDestino = "123";
             llamadaDepto.NumeroOrigen = "456";
             ((LlamadaDepartamental)llamadaDepto).Franja = 0;
@@ -42,7 +54,8 @@ namespace CentralTelefonica
                       Console.WriteLine($"Llamada Depto ({item}) Precio: {item.CalcularPrecio()}"); //Interpolación
                 }     
             }
-            Console.ReadKey();           
+            Console.ReadKey(); */   
+         
         }
     }
 }

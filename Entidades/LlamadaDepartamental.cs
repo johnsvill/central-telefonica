@@ -29,6 +29,13 @@ namespace CentralTelefonica.Entidades
             get { return franja;}
             set { franja = value;}
         }
+         public LlamadaDepartamental() //Constructor nulo o por defecto
+        {
+
+        }
+         public LlamadaDepartamental(string numeroOrigen, string numeroDestino, double duracion) =>
+           (base.NumeroOrigen, base.NumeroDestino, base.Duracion) = //Propiedades de la clase
+             (numeroOrigen,numeroDestino,duracion); //Parámetros q recibe el constructor
         
         public override double CalcularPrecio(){
             double resultado = 0;

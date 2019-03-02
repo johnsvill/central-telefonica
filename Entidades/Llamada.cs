@@ -20,7 +20,14 @@ namespace CentralTelefonica.Entidades
             get { return duracion;}
             set { duracion = value;}
         }
-        
+        public Llamada() //Constructor nulo o por defecto
+        {
+
+        }
+        //Programación Funcional
+        public Llamada(string numeroOrigen, string numeroDestino, double duracion) 
+          => (NumeroOrigen,NumeroDestino,Duracion) = //Propiedades de la clase
+                (numeroOrigen,numeroDestino,duracion); //Parámetros q recibe el constructor
         public abstract double CalcularPrecio();
         public override string ToString()
         {
