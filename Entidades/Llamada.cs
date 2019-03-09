@@ -29,7 +29,7 @@ namespace CentralTelefonica.Entidades
           => (NumeroOrigen,NumeroDestino,Duracion) = //Propiedades de la clase
                 (numeroOrigen,numeroDestino,duracion); //Parámetros q recibe el constructor
         public abstract double CalcularPrecio();
-        public override string ToString()
+        public override string ToString()//Sobreescribir
         {
             return $" #Origen: {this.numeroOrigen} - #Destino: {this.numeroDestino} - Duración: {this.duracion}";
         }

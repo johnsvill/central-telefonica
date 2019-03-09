@@ -1,78 +1,139 @@
 using System;
-using static System.Console; //Namespace para la consola
+using static System.Console; //es para no estar escribiendo la palabra console
 using CentralTelefonica.Entidades;
-using System.Collections.Generic; //Colecciones genéricas y concurrentes
+using System.Collections.Generic; // Se importan la libreria
+using CentralTelefonica.Util;
 namespace CentralTelefonica.App
 {
     public class MenuPrincipal
     {
-        private const float precioUnoDepartamental = 0.65f; //Se pone "f" para definir un float
-        private const float precioDosDepartamental = 0.85f;
+        //constante
+        private const float precioUnoDepartamental = 0.65f; //se realiza el cast de double a float
+        private const float precioDosDepartamental = 0.85f; //Una constante nunca va a cambiar de valor
         private const float precioTresDepartamental = 0.98f;
         private const float precioLocal = 0.49f;
-        public List<Llamada> ListaDeLlamadas {get; set;} //Propiedad
+
+        //Almacenar una coleccion a nivel de la clase (Listas Genericas)
+        public List<Llamada> ListaDeLlamadas { get; set; }//Encapsulamiento *Cuando no utilizar este tipo de encapsulamiento cuando no se va a validar que este vacia etc
+
+        public MenuPrincipal()
+        {
+            this.ListaDeLlamadas = new List<Llamada>();
+        }
         public void MostrarMenu()
         {
-            var opcion = 0; //Es un tipo de variable estandar q va a depender de la asignación
+            int opcion = 100;
             do
             {
-                WriteLine("1. Registrar llamada local1");
-                WriteLine("2. Registrar llamada departamental1");
-                WriteLine("3. Costo total de las llamadas locales locales");
-                WriteLine("4. Costo total de las llamadas departamentales");
-                WriteLine("5. Costo total de las llamadas");
-                WriteLine("0. Salir");
-                WriteLine("Ingrese su opción===>");
-                string valor = ReadLine();
-                opcion = Convert.ToInt16(valor); //Unboxing, "ToInt16" se está utilizando un método estático q no es necesario instanciar
-                if(opcion == 1)
+                try
                 {
-                    RegistrarLlamada(opcion); //No está devolviendo ningún valor
+                    //Sentencia de control do..While
+                    //console.writeLine("1. Registrar llamada Local");
+                    WriteLine("1. Registrar llamada Local");
+                    WriteLine("2. Registrar llamada departamental");
+                    WriteLine("3. Costo total de las llamadas locales");
+                    WriteLine("4. Costo total de las llamdas departamentales");
+                    WriteLine("5. Costo total de las llamdas");
+                    WriteLine("6. Mostrar Resumen");
+                    WriteLine("0. Salir");
+                    WriteLine("Ingrese su opción===>");
+                    string valor = ReadLine();
+                    opcion = Convert.ToInt16(valor);
+                    //Sentencias de Control if
+                    if (opcion == 1)
+                    {
+                        RegistrarLlamada(opcion);
+                    }
+                    else if (opcion == 2)
+                    {
+                        RegistrarLlamada(opcion);
+                    }
+
+                    else if (opcion == 6)
+                    {
+                        MostarDetalleForEach();
+                    }
                 }
-               
-            }while(opcion != 0);
+                catch (Exception e)
+                {
+                    throw new OpcionMenuExcepcion();
+                }
+            } while (opcion != 0);
         }
+
+        //Metodo
         public void RegistrarLlamada(int opcion)
-        {
-            string numeroOrigen = ""; //Son variables a nivel de la clase
-            string numeroDestino = ""; //Son variables a nivel de la clase
-            string duracion = ""; //Son variables a nivel de la clase
-           /*  string tipo = ""; //Son variables a nivel de la clase*/
-           Llamada llamada = null;
+        { //crear parametro
+          //Crear variables a nivel de la clase
+            string numeroOrigen = "";
+            string numeroDestino = "";
+            string duracion = "";
+            //string tipo = "";
+            Llamada llamada = null;
             WriteLine("Ingrese el número de origen");
             numeroOrigen = ReadLine();
             WriteLine("Ingrese el número de destino");
             numeroDestino = ReadLine();
             WriteLine("Duración de la llamada");
             duracion = ReadLine();
-           /*  WriteLine("Tipo de llamada: \n1. \"Local\"\n2. Depto"); 
-           //  \"Local\" para imprimier las comillas*/
 
-           //SENTENCIAS DE CONTROL
-            if(opcion == 1)
+            /*WriteLine("Tipo de Llamada: \n1. \"Local \"\n2. Depto"); //caracter salto de linea o de escape
+            tipo = ReadLine();*/
+
+            if (opcion == 1)
             {
-                llamada = new LlamadaLocal(numeroOrigen,numeroDestino,Convert.ToDouble(duracion));
-                /* llamada.NumeroDestino = numeroDestino;
-                llamada.NumeroOrigen = numeroOrigen;
-                llamada.Duracion = Convert.ToDouble(duracion);*/
-                ((LlamadaLocal)llamada).Precio = precioLocal; //Casteo
-
-            }else if(opcion == 2)
+                llamada = new LlamadaLocal(numeroOrigen, numeroDestino, Convert.ToDouble(duracion));
+                ((LlamadaLocal)llamada).Precio = precioLocal;
+            }
+            else if (opcion == 2)
             {
-                llamada = new LlamadaDepartamental(numeroOrigen,numeroDestino,Convert.ToDouble(duracion));
-
-             /* llamada.NumeroDestino = numeroDestino;
-                llamada.NumeroOrigen = numeroOrigen;
-                llamada.Duracion = Convert.ToDouble(duracion);*/
+                llamada = new LlamadaDepartamental(numeroOrigen, numeroDestino, Convert.ToDouble(duracion));
                 ((LlamadaDepartamental)llamada).PrecioUno = precioUnoDepartamental;
                 ((LlamadaDepartamental)llamada).PrecioDos = precioDosDepartamental;
                 ((LlamadaDepartamental)llamada).PrecioTres = precioTresDepartamental;
-                ((LlamadaDepartamental)llamada).Franja = 0;
+                ((LlamadaDepartamental)llamada).Franja = 0; //Regla de Negocio Franja 0: L(6:00)-V(21:59)  Franja 1: L(22:00) - V(5:59) Franja 3: V(22:00) - L (5:59)
 
-            }else
+            }
+            else
             {
-                WriteLine("Tipo de llamada no registrado");
+                WriteLine("Tipo de llamada no registrada");
+            }
+            this.ListaDeLlamadas.Add(llamada);
+        }
+        public void MostrarDetalleWhile()
+        {
+            int i = 0;
+            while (this.ListaDeLlamadas.Count > i)
+            {
+                WriteLine(this.ListaDeLlamadas[i]);
+                //i = i + 1;
+                //i+=1;
+                i++;
             }
         }
-    }
+        public void MostrarDetalleDoWhile()
+        {
+            int i = 0;
+            do
+            {
+                WriteLine(this.ListaDeLlamadas[i]);
+                i++;
+            } while (this.ListaDeLlamadas.Count > i);
+        }
+        public void MostrarDetalleFor()
+        {
+
+            for (int i = 0; i < this.ListaDeLlamadas.Count; i++)
+            {
+                WriteLine(this.ListaDeLlamadas[i]);
+            }
+        }
+        public void MostarDetalleForEach()
+        {
+            foreach (var llamada in this.ListaDeLlamadas)
+            {
+                WriteLine(llamada);
+            }
+       }
+    }    
 }
