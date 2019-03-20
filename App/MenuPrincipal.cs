@@ -11,7 +11,7 @@ namespace CentralTelefonica.App
         private const float precioUnoDepartamental = 0.65f; //se realiza el cast de double a float
         private const float precioDosDepartamental = 0.85f; //Una constante nunca va a cambiar de valor
         private const float precioTresDepartamental = 0.98f;
-        private const float precioLocal = 0.49f;
+        private const float precioLocal = 1.25f;
 
         //Almacenar una coleccion a nivel de la clase (Listas Genericas)
         public List<Llamada> ListaDeLlamadas { get; set; }//Encapsulamiento *Cuando no utilizar este tipo de encapsulamiento cuando no se va a validar que este vacia etc
@@ -38,7 +38,11 @@ namespace CentralTelefonica.App
                     WriteLine("0. Salir");
                     WriteLine("Ingrese su opción===>");
                     string valor = ReadLine();
-                    opcion = Convert.ToInt16(valor);
+                    if(EsNumero(valor) == true)
+                    {
+                        opcion = Convert.ToInt16(valor);
+                    }
+                    /* opcion = Convert.ToInt16(valor);*/
                     //Sentencias de Control if
                     if (opcion == 1)
                     {
@@ -48,17 +52,33 @@ namespace CentralTelefonica.App
                     {
                         RegistrarLlamada(opcion);
                     }
-
+                    else if (opcion == 3)
+                    {
+                        MostrarCostoLlamadasLocales();
+                    }
                     else if (opcion == 6)
                     {
-                        MostarDetalleForEach();
+                        MostarDetalle();
                     }
                 }
-                catch (Exception e)
+                catch (OpcionMenuExcepcion e) // Ver foto
                 {
-                    throw new OpcionMenuExcepcion();
+                    WriteLine(e.Message);
                 }
             } while (opcion != 0);
+        }
+        public Boolean EsNumero(string valor)
+        {
+            Boolean resultado = false;
+            try
+            {
+                int numero = Convert.ToInt16(valor);
+                resultado = true;
+            }catch(Exception e)
+            {
+                throw new OpcionMenuExcepcion();
+            }
+            return resultado;
         }
 
         //Metodo
@@ -100,7 +120,7 @@ namespace CentralTelefonica.App
             }
             this.ListaDeLlamadas.Add(llamada);
         }
-        public void MostrarDetalleWhile()
+       /*  public void MostrarDetalleWhile()
         {
             int i = 0;
             while (this.ListaDeLlamadas.Count > i)
@@ -127,13 +147,31 @@ namespace CentralTelefonica.App
             {
                 WriteLine(this.ListaDeLlamadas[i]);
             }
-        }
-        public void MostarDetalleForEach()
+        }*/
+        public void MostarDetalle()
         {
-            foreach (var llamada in this.ListaDeLlamadas)
+            foreach (var llamada in this.ListaDeLlamadas)//Para recorrer todas las posiciones sin verificar la última posición
             {
                 WriteLine(llamada);
             }
+       }
+       public void MostrarCostoLlamadasLocales()
+       {
+           double costoTotal = 0.0;
+           double tiempoLlamada = 0;
+           /*Llamada validar = new LlamadaLocal();*/
+           foreach(var elemento in ListaDeLlamadas)
+           {
+               if(elemento.GetType() == typeof(LlamadaLocal))//Se está comparando no sólo el tipo sino de la instancia de la q fue creada
+               //GetType me devuelve 2 formas: Llamada y LlamadaLocal, se está obligando el método a q compare las 2 formas q tiene
+               {
+                    tiempoLlamada += elemento.Duracion;
+                    costoTotal += elemento.CalcularPrecio();//Se está invocando el método q está en la clase hija, solo se manda a llamar la implementación del método
+               }            
+           }
+           WriteLine($"Costo minuto: {precioLocal}");
+           WriteLine($"Tiempo total de llamadas: {tiempoLlamada}");
+           WriteLine($"Costo total: {costoTotal}");
        }
     }    
 }

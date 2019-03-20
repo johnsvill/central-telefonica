@@ -4,7 +4,7 @@ namespace CentralTelefonica.Util
 {
     public class OpcionMenuExcepcion : Exception
     {
-        private string message = "Error, debe de ingresar un número no un caracter";
+        private string message = "\"ERROR\", debe de ingresar una opción válida";
         public override string Message
         {
             get { return message;}
